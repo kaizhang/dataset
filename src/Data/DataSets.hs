@@ -4,6 +4,8 @@ module Data.DataSets where
 
 import Data.DataSets.Internal
 
+-- $ datasets
+
 $(readData "data/datasets/sunspots.csv" ["Double", "Double"])
 
 $(readData "data/datasets/faithful.csv" ["Double", "Int"])
@@ -13,6 +15,11 @@ $(readData "data/datasets/UKDriverDeaths.csv" ["Double", "Int"])
 $(readData "data/datasets/austres.csv" ["Double", "Double"])
 
 $(readData "data/datasets/mtcars.csv" ["Double", "Int", "Double", "Int", "Double", "Double", "Double", "Int", "Int", "Int", "Int"])
+
+
+-- $ MASS
+
+$(readData "data/MASS/Skye.csv" ["Int", "Int", "Int"])
 
 
 {-

@@ -3,8 +3,8 @@
 
 name:                datasets
 version:             0.1.0
--- synopsis:            
--- description:         
+synopsis:            An archive of datasets distributed with statistical package R
+description:         An archive of datasets distributed with statistical package R
 license:             GPL-3
 license-file:        LICENSE
 author:              Kai Zhang
@@ -15,15 +15,16 @@ build-type:          Simple
 cabal-version:       >=1.8
 
 data-files:
-    data/datasets/*.csv
+  data/datasets/*.csv
+  data/MASS/*.csv
 
 library
-  hs-source-dirs: src
+  hs-source-dirs:    src
+
   exposed-modules:
     Data.DataSets
 
-  other-modules:
-    Data.DataSets.Internal
+  other-modules:     Data.DataSets.Internal
 
   build-depends:
       base >=4.0
@@ -32,4 +33,3 @@ library
     , template-haskell
     , split
     , text
-    , bytestring-lexing
