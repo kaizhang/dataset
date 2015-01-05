@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                datasets
-version:             0.1.0.0
+version:             0.1.0
 -- synopsis:            
 -- description:         
 license:             GPL-3
@@ -15,84 +15,21 @@ build-type:          Simple
 cabal-version:       >=1.8
 
 data-files:
-    Data/DataSets/rdatasets/sunspots.csv
-    Data/DataSets/rdatasets/faithful.csv
-    Data/DataSets/rdatasets/UKDriverDeaths.csv
-    Data/DataSets/rdatasets/austres.csv
-    Data/DataSets/rdatasets/mtcars.csv
-    Data/DataSets/rdatasets/BOD.csv
-    Data/DataSets/rdatasets/npk.csv
-    Data/DataSets/rdatasets/warpbreaks.csv
-    Data/DataSets/rdatasets/precip.csv
-    Data/DataSets/rdatasets/HairEyeColor.csv
-    Data/DataSets/rdatasets/pressure.csv
-    Data/DataSets/rdatasets/lh.csv
-    Data/DataSets/rdatasets/UKgas.csv
-    Data/DataSets/rdatasets/swiss.csv
-    Data/DataSets/rdatasets/WorldPhones.csv
-    Data/DataSets/rdatasets/rivers.csv
-    Data/DataSets/rdatasets/discoveries.csv
-    Data/DataSets/rdatasets/Nile.csv
-    Data/DataSets/rdatasets/UCBAdmissions.csv
-    Data/DataSets/rdatasets/BJsales.csv
-    Data/DataSets/rdatasets/volcano.csv
-    Data/DataSets/rdatasets/anscombe.csv
-    Data/DataSets/rdatasets/freeny.csv
-    Data/DataSets/rdatasets/uspop.csv
-    Data/DataSets/rdatasets/treering.csv
-    Data/DataSets/rdatasets/iris.csv
-    Data/DataSets/rdatasets/USPersonalExpenditure.csv
-    Data/DataSets/rdatasets/presidents.csv
-    Data/DataSets/rdatasets/Puromycin.csv
-    Data/DataSets/rdatasets/Formaldehyde.csv
-    Data/DataSets/rdatasets/Titanic.csv
-    Data/DataSets/rdatasets/trees.csv
-    Data/DataSets/rdatasets/women.csv
-    Data/DataSets/rdatasets/cars.csv
-    Data/DataSets/rdatasets/islands.csv
-    Data/DataSets/rdatasets/co2.csv
-    Data/DataSets/rdatasets/VADeaths.csv
-    Data/DataSets/rdatasets/morley.csv
-    Data/DataSets/rdatasets/LifeCycleSavings.csv
-    Data/DataSets/rdatasets/USAccDeaths.csv
-    Data/DataSets/rdatasets/InsectSprays.csv
-    Data/DataSets/rdatasets/nottem.csv
-    Data/DataSets/rdatasets/airquality.csv
-    Data/DataSets/rdatasets/ToothGrowth.csv
-    Data/DataSets/rdatasets/sleep.csv
-    Data/DataSets/rdatasets/attenu.csv
-    Data/DataSets/rdatasets/airmiles.csv
-    Data/DataSets/rdatasets/quakes.csv
-    Data/DataSets/rdatasets/USJudgeRatings.csv
-    Data/DataSets/rdatasets/occupationalStatus.csv
-    Data/DataSets/rdatasets/LakeHuron.csv
-    Data/DataSets/rdatasets/nhtemp.csv
-    Data/DataSets/rdatasets/randu.csv
-    Data/DataSets/rdatasets/rock.csv
-    Data/DataSets/rdatasets/lynx.csv
-    Data/DataSets/rdatasets/AirPassengers.csv
-    Data/DataSets/rdatasets/longley.csv
-    Data/DataSets/rdatasets/USArrests.csv
-    Data/DataSets/rdatasets/PlantGrowth.csv
-    Data/DataSets/rdatasets/euro.csv
-    Data/DataSets/rdatasets/stackloss.csv
-    Data/DataSets/rdatasets/sunspotMonth.csv
-    Data/DataSets/rdatasets/crimtab.csv
-    Data/DataSets/rdatasets/WWWusage.csv
-    Data/DataSets/rdatasets/attitude.csv
-    Data/DataSets/rdatasets/esoph.csv
-    Data/DataSets/rdatasets/OrchardSprays.csv
-    Data/DataSets/rdatasets/sunspotYear.csv
-    Data/DataSets/rdatasets/infert.csv
-    Data/DataSets/rdatasets/chickwts.csv
-    Data/DataSets/rdatasets/JohnsonJohnson.csv
+    data/datasets/*.csv
 
 library
+  hs-source-dirs: src
   exposed-modules:
-    Data.DataSets,
-    Data.DataSets.Internal
+    Data.DataSets
 
   other-modules:
-    Paths_datasets
+    Data.DataSets.Internal
 
-  build-depends:       base ==4.6.*, bytestring ==0.10.*, bytestring-lexing ==0.4.*, vector == 0.10.*
+  build-depends:
+      base >=4.0
+    , bytestring
+    , bytestring-lexing
+    , template-haskell
+    , split
+    , text
+    , bytestring-lexing

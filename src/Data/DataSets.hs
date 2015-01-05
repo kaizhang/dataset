@@ -1,24 +1,21 @@
-{-# LANGUAGE OverloadedStrings, UnicodeSyntax #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Data.DataSets where
 
 import Data.DataSets.Internal
 
-sunspots ∷ IO DataSet
-sunspots = readData "Data/DataSets/rdatasets/sunspots.csv"
+$(readData "data/datasets/sunspots.csv" ["Double", "Double"])
 
-faithful ∷ IO DataSet
-faithful = readData "Data/DataSets/rdatasets/faithful.csv"
+$(readData "data/datasets/faithful.csv" ["Double", "Int"])
 
-ukdriverdeaths ∷ IO DataSet
-ukdriverdeaths = readData "Data/DataSets/rdatasets/UKDriverDeaths.csv"
+$(readData "data/datasets/UKDriverDeaths.csv" ["Double", "Int"])
 
-austres ∷ IO DataSet
-austres = readData "Data/DataSets/rdatasets/austres.csv"
+$(readData "data/datasets/austres.csv" ["Double", "Double"])
 
-mtcars ∷ IO DataSet
-mtcars = readData "Data/DataSets/rdatasets/mtcars.csv"
+$(readData "data/datasets/mtcars.csv" ["Double", "Int", "Double", "Int", "Double", "Double", "Double", "Int", "Int", "Int", "Int"])
 
+
+{-
 bod ∷ IO DataSet
 bod = readData "Data/DataSets/rdatasets/BOD.csv"
 
@@ -216,3 +213,4 @@ chickwts = readData "Data/DataSets/rdatasets/chickwts.csv"
 
 johnsonjohnson ∷ IO DataSet
 johnsonjohnson = readData "Data/DataSets/rdatasets/JohnsonJohnson.csv"
+-}
