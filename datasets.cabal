@@ -17,12 +17,15 @@ cabal-version:       >=1.8
 data-files:
   data/datasets/*.csv
   data/MASS/*.csv
+  data/cluster/*.csv
 
 library
   hs-source-dirs:    src
 
   exposed-modules:
-    Data.DataSets
+      Data.DataSets.DataSets
+    , Data.DataSets.MASS
+    , Data.DataSets.Cluster
 
   other-modules:     Data.DataSets.Internal
 
