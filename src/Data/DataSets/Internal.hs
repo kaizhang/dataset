@@ -4,24 +4,27 @@ module Data.DataSets.Internal
     , readInt
     , readText
     , readDouble
+    , Text
     ) where
 
-import Language.Haskell.TH
-import Control.Applicative ((<$>))
 import Control.Monad
 import Data.Char (toUpper, toLower)
-import Data.List.Split
+import Data.List.Split (splitOn)
 import qualified Data.ByteString.Char8 as B
 import qualified Data.Text as T
+import Data.Text (Text)
 import qualified Data.ByteString.Lex.Double as L
-import Data.Maybe
+import Data.Maybe (fromJust)
+import Language.Haskell.TH
+import System.IO.Unsafe (unsafePerformIO)
+import Paths_datasets
 
 readData :: FilePath -> [String] -> Q [Dec]
-readData fl ts = do
-    signature <- sigD (mkName dataName) $ appT [t|IO|] $ appT [t|[]|] $ conT dataTypeName
+readData fl ts' = do
+    signature <- sigD (mkName dataName) $ appT [t|[]|] $ conT dataTypeName
     dataTypeDecl <- dataD (cxt []) dataTypeName [] [c] [mkName "Show"]
     importData <- [d| $(varP $ mkName dataName) =
-                        map $(fromCSVRecord dataTypeName ts) <$> readCSV fl
+                        map $(fromCSVRecord dataTypeName ts) $ unsafeReadCSV fl
                     |]
     return $ signature : dataTypeDecl : importData
   where
@@ -32,17 +35,18 @@ readData fl ts = do
         let mkFieldName x = mkName $ dataName ++ (toUpper (head x) : tail x)
             y = zipWith (\a b -> varStrictType (mkFieldName a) (strictType isStrict (conT . mkName $ b))) xs ts
         runQ $ recC dataTypeName y
+    ts = "Text" : ts'
 
 readHeader :: FilePath -> IO [String]
 readHeader fl = do
-    c <- readFile fl
-    return . filter (not . null) $ map read $ splitOn "," . head . lines $ c
+    c <- readFile =<< getDataFileName fl
+    return . ("id":) . map read . tail . splitOn "," . head . lines $ c
 {-# INLINE readHeader #-}
 
-readCSV :: FilePath -> IO [[B.ByteString]]
-readCSV fl = do
-    c <- B.readFile fl
-    return . map (tail . B.split ',') . tail . B.lines $ c
+unsafeReadCSV :: FilePath -> [[B.ByteString]]
+unsafeReadCSV fl = unsafePerformIO $ do
+    c <- B.readFile =<< getDataFileName fl
+    return . map (B.split ',') . tail . B.lines $ c
 
 -- | return a function which takes a list of bytestrings as input, output desirable
 -- data value
@@ -54,6 +58,7 @@ fromCSVRecord constr ts = do
     f t x = case t of
         "Int" -> appE (varE (mkName "readInt")) $ varE x
         "Double" -> appE (varE (mkName "readDouble")) $ varE x
+        "Text" -> appE (varE (mkName "readText")) $ varE x
         _ -> undefined
     n = length ts
 
@@ -61,7 +66,7 @@ readInt :: B.ByteString -> Int
 readInt = fst . fromJust . B.readInt
 {-# INLINE readInt #-}
 
-readText :: B.ByteString -> T.Text
+readText :: B.ByteString -> Text
 readText x | B.head x == '\"' && B.last x == '\"' = T.pack . B.unpack . B.init . B.tail $ x
            | otherwise = error "not a text"
 {-# INLINE readText #-}

@@ -27,7 +27,9 @@ library
     , Data.DataSets.MASS
     , Data.DataSets.Cluster
 
-  other-modules:     Data.DataSets.Internal
+  other-modules:
+      Data.DataSets.Internal
+    , Paths_datasets
 
   build-depends:
       base >=4.0
