@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskell #-}
 
-module Data.DataSets.DataSets where
+module Data.DataSets.Datasets where
 
 import Data.DataSets.Internal
 

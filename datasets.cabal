@@ -23,7 +23,7 @@ library
   hs-source-dirs:    src
 
   exposed-modules:
-      Data.DataSets.DataSets
+      Data.DataSets.Datasets
     , Data.DataSets.MASS
     , Data.DataSets.Cluster
 
